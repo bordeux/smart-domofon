@@ -22,6 +22,44 @@ I'll share my learnings here.
 * L- is GND
 * digital domofon - it is only the name. It is still analog in practice.
 
+### How to connect into ESP?
+ESP works only on 3.3v. Intercom is working on 11v. Some resistors is needed.
+My setup:
+
+```mermaid
+---
+title: Connection diagram
+---
+flowchart TB
+    eGND[GND]
+    iGND[L-]
+    iLP[L+]
+    eD1[D1]
+    R1[Resistor 10kΩ]
+    R2[Resistor 3.5KΩ]
+    
+    eGND<-->iGND
+    R1<-->iLP
+    R1<-->eD1
+    eGND<-->R2
+    R2<-->eD1
+    
+    subgraph Intercom
+        iGND
+        iLP
+    end
+    
+    subgraph Wires
+        R1
+        R2
+    end
+    
+    subgraph ESP8266
+        eGND
+        eD1
+    end
+```
+
 ### IDLE
 In IDLE mode, L+ is 0 state
 
