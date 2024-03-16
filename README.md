@@ -78,11 +78,18 @@ Count of edge falling is dialled number.
 #### Here full view of dialling procedure. It takes 58ms
 ![dialling procedure](./.github/images/photo4.png)
 
-## Calling
-After 58ms of dialling, the calling procedure is started.
+## Detecting signal type
+After 58ms of dialling, the event type need to be detected.
 
-It changes the state in 0.5s interval
+* ringing: 500uS interval state change
+* wrong gate pin: 250uS interval stage change
 
-![calling](./.github/images/photo5.png)
-![calling](./.github/images/photo6.png)
+Solution implemented: 
+Wait after dialling for next pull-up, start counting pull-ups for 10ms.
+* 10 ±1 = calling
+* 5 ±1 = wrong gate ping
+
+
+#### Example of calling - interval 500uS
+![calling](./.github/images/photo5.png) ![calling](./.github/images/photo6.png)
 
