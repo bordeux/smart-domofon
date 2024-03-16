@@ -1,6 +1,6 @@
 # smart-domofon
 
-ESP32/8266/12E implementation of Unifon digital domfon
+ESP32/8266/12E implementation of Unifon digital domfon/intercom
 
 ![hobby-desk](./.github/images/photo1.jpg)
 
@@ -11,15 +11,16 @@ NO
 ### When this project will be finished?
 > Witam, chyba nigdy  
 
-I think never. It is hobby project. If i will finish it, i will be happy :) 
+I think never. It is hobby project :) 
 
 
 ## Documentation
-I will share here what i know
+I'll share my learnings here.
 
 ### General
 * L+ is analog, 0-11V
 * L- is GND
+* digital domofon - it is only the name. It is still analog in practice.
 
 ### IDLE
 In IDLE mode, L+ is 0 state
