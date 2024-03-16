@@ -31,12 +31,18 @@ And then we have 58ms to count all Edge falling.
 Count of edge falling is dialled number.
 
 Example how it looks like when number 10 is called
-![hobby-desk](./.github/images/photo2.png)
+![dialling 10](./.github/images/photo2.png)
 
 Example how it looks like when number 8 is called
-![hobby-desk](./.github/images/photo3.png)
+![dialling 8](./.github/images/photo3.png)
 
-
+Here full view of dialling procedure. It takes 58ms
+![dialling procedure](./.github/images/photo4.png)
 
 ### Calling
 After 58ms of dialling, the calling procedure is started.
+
+It changes the state in 0.5s interval
+![calling](./.github/images/photo5.png)
+![calling](./.github/images/photo6.png)
+
