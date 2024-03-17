@@ -82,14 +82,24 @@ Count of edge falling is dialled number.
 After 58ms of dialling, the event type need to be detected.
 
 * ringing: 500uS interval state change
-* wrong gate pin: 250uS interval stage change
+* wrong gate pin: 280uS interval state change, 530uS cycle
+* correct gate pin: 218uS interval , 424uS cycle
 
 Solution implemented: 
 Wait after dialling for next pull-up, start counting pull-ups for 10ms.
 * 10 ±1 = calling
 * 5 ±1 = wrong gate ping
+* 23 ±1 - correct pin
 
 
 #### Example of calling - interval 500uS
 ![calling](./.github/images/photo5.png) ![calling](./.github/images/photo6.png)
+
+
+#### Example of gate unlock - interval 220uS, 424uS cycle
+![calling](./.github/images/photo7.png) ![calling](./.github/images/photo10.png)
+
+#### Example of gate unlock wrong pin - interval 280uS, cycle around 530uS
+
+![calling](./.github/images/photo8.png) ![calling](./.github/images/photo9.png)
 

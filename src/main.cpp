@@ -6,29 +6,52 @@
 #define STATE_POST_DIALING 2
 #define STATE_DETECTING_SIGNAL 3
 #define STATE_CALLING 4
+#define STATE_GATE_WRONG_PIN 5
+#define STATE_GATE_UNLOCK 5
 
 #define DIALING_TIME_MS 58
 #define DIGITAL_INPUT_PIN D1
+
+#define SIGNALS_CALLING 10
+#define SIGNALS_WRONG_GATE_PING 5
+#define SIGNALS_CORRECT_GATE_PING 23
 
 Ticker timer;
 int signalCount = 0;
 int lastCalledNumber = 0;
 int STATE = STATE_SLEEP;
 
+bool isSignal(int signalsCount, int expected, int tolerance = 1) {
+    return signalsCount > expected - tolerance
+           && signalsCount < expected + tolerance;
+}
+
 void detectSignalType() {
     if (STATE != STATE_DETECTING_SIGNAL) {
         return;
     }
 
-    Serial.println();
-    Serial.print("==== Ilosc tickow  ");
-    Serial.print(signalCount);
-    Serial.println("=====");
+    if (isSignal(signalCount, SIGNALS_CALLING)) {
+        STATE = STATE_CALLING;
+        return;
+    }
 
-    STATE = STATE_CALLING;
+    if (isSignal(signalCount, SIGNALS_WRONG_GATE_PING)) {
+        STATE = STATE_GATE_WRONG_PIN;
+        return;
+    }
+
+    if (isSignal(signalCount, SIGNALS_CORRECT_GATE_PING)) {
+        STATE = STATE_GATE_UNLOCK;
+        return;
+    }
 }
 
 void stopDialing() {
+    if (STATE != STATE_DIALING) {
+        return;
+    }
+
     lastCalledNumber = signalCount;
     STATE = STATE_POST_DIALING;
 }
@@ -80,7 +103,7 @@ void loop() {
         lastCalledNumber = 0;
 
         Serial.println("Czekanie 4s");
-        delay(4000);
+        delay(7000);
         Serial.println("Odblokowanie lock'a");
         STATE = STATE_SLEEP;
     };
