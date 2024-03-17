@@ -104,7 +104,20 @@ Wait after dialling for next pull-up, start counting pull-ups for 10ms.
 ![gate unlock - wrong pin](./.github/images/photo8.png) ![gate unlock - wrong pin](./.github/images/photo9.png)
 
 ## Cancelling calling
-Cancelling signal looks like 10ms UP state, and then failing to 50% of signal.
+Cancelling signal (call & press (C) Key) looks like 10ms UP state, and then failing to 50% of signal.
 
 #### Example of calling & right after pressing cancel key (C) 
 ![calling - cannceling](./.github/images/photo11.png)
+
+
+## @ToDo
+
+#### signals
+* after pickup the intercom, detected signal how call is ended
+* after pickup the intercom, detected opening the gate signal.
+* detect how procedure of wrong pin & correct pin is ended. 
+* detect how to pickup the call.
+
+####  software
+* implement two way voice communication
+* find some ADC/DAC working with 10 voltage or any other solution
