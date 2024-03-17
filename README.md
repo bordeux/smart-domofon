@@ -97,9 +97,13 @@ Wait after dialling for next pull-up, start counting pull-ups for 10ms.
 
 
 #### Example of gate unlock - interval 220uS, 424uS cycle
-![calling](./.github/images/photo7.png) ![calling](./.github/images/photo10.png)
+![gate unlock](./.github/images/photo7.png) ![gate unlock](./.github/images/photo10.png)
 
 #### Example of gate unlock wrong pin - interval 280uS, cycle around 530uS
 
-![calling](./.github/images/photo8.png) ![calling](./.github/images/photo9.png)
+![gate unlock - wrong pin](./.github/images/photo8.png) ![gate unlock - wrong pin](./.github/images/photo9.png)
 
+## Cancelling calling
+
+#### Example of calling & right after pressing cancel key (C) 
+![calling - cannceling](./.github/images/photo11.png)
