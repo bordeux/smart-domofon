@@ -81,8 +81,8 @@ Count of edge falling is dialled number.
 ## Detecting signal type
 After 58ms of dialling, the event type need to be detected.
 
-* ringing: 500uS interval state change
-* wrong gate pin: 280uS interval state change, 530uS cycle
+* ringing: 500uS interval
+* wrong gate pin: 280uS interval, 530uS cycle
 * correct gate pin: 218uS interval , 424uS cycle
 
 Solution implemented: 
