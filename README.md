@@ -92,7 +92,7 @@ Wait after dialling for next pull-up, start counting pull-ups for 10ms.
 * 23 ±1 - correct pin
 
 
-#### Example of calling - interval 500uS
+#### Example of calling - interval 500uS, 1ms cycle
 ![calling](./.github/images/photo5.png) ![calling](./.github/images/photo6.png)
 
 

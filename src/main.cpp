@@ -7,14 +7,15 @@
 #define STATE_DETECTING_SIGNAL 3
 #define STATE_CALLING 4
 #define STATE_GATE_WRONG_PIN 5
-#define STATE_GATE_UNLOCK 5
+#define STATE_GATE_UNLOCK 6
+#define STATE_UNKNOWN 7
 
 #define DIALING_TIME_MS 58
 #define DIGITAL_INPUT_PIN D1
 
 #define SIGNALS_CALLING 10
-#define SIGNALS_WRONG_GATE_PING 5
-#define SIGNALS_CORRECT_GATE_PING 23
+#define SIGNALS_WRONG_GATE_PIN 18
+#define SIGNALS_CORRECT_GATE_PIN 23
 
 Ticker timer;
 int signalCount = 0;
@@ -22,11 +23,14 @@ int lastCalledNumber = 0;
 int STATE = STATE_SLEEP;
 
 bool isSignal(int signalsCount, int expected, int tolerance = 1) {
-    return signalsCount > expected - tolerance
-           && signalsCount < expected + tolerance;
+    return signalsCount >= expected - tolerance
+           && signalsCount <= expected + tolerance;
 }
 
 void detectSignalType() {
+    Serial.println("Detecting signal type");
+    Serial.print(signalCount);
+
     if (STATE != STATE_DETECTING_SIGNAL) {
         return;
     }
@@ -36,15 +40,19 @@ void detectSignalType() {
         return;
     }
 
-    if (isSignal(signalCount, SIGNALS_WRONG_GATE_PING)) {
+    if (isSignal(signalCount, SIGNALS_WRONG_GATE_PIN)) {
         STATE = STATE_GATE_WRONG_PIN;
         return;
     }
 
-    if (isSignal(signalCount, SIGNALS_CORRECT_GATE_PING)) {
+    if (isSignal(signalCount, SIGNALS_CORRECT_GATE_PIN)) {
         STATE = STATE_GATE_UNLOCK;
         return;
     }
+    Serial.println();
+    Serial.println("WTF?: signals");
+    Serial.print(signalCount);
+    STATE = STATE_UNKNOWN;
 }
 
 void stopDialing() {
@@ -94,17 +102,32 @@ void setup() {
 
 
 void loop() {
-    if (STATE == STATE_CALLING) {
+    if (STATE >= STATE_CALLING) {
         Serial.println();
-        Serial.print("==== Wybrano numer  ");
-        Serial.print(lastCalledNumber);
-        Serial.println("=====");
+        Serial.println("========= START =========");
+        Serial.print("Selected number:   ");
+        Serial.println(lastCalledNumber);
+        Serial.print("Mode: ");
+        switch (STATE) {
+            case STATE_CALLING:
+                Serial.println("Calling");
+            break;
+            case STATE_GATE_WRONG_PIN:
+                Serial.println("Wrong Gate PIN");
+                break;
+            case STATE_GATE_UNLOCK:
+                Serial.println("Correct gate pin");
+                break;
+            case STATE_UNKNOWN:
+                Serial.println("Unknown");
+                break;
+            default:
+                Serial.println("Unknown");
+        }
 
-        lastCalledNumber = 0;
-
-        Serial.println("Czekanie 4s");
+        Serial.println("Waiting 7s");
         delay(7000);
-        Serial.println("Odblokowanie lock'a");
+        Serial.println("Back to sleep mode");
         STATE = STATE_SLEEP;
     };
 };
